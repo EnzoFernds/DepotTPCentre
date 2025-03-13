@@ -38,16 +38,27 @@
                         echo '<div class="row">';
                         for ($j = 0; $j < $cellulesParLigne; $j++):
                             echo '<div class="cell">
-                                    <button class="button" onclick="myFunction()">Réserver</button>
+
                                   </div>';
                         endfor;
                         echo '</div>';
                     endfor;
                 endforeach;
                 ?>
+                <div>
+                </div>
+            </div>
+        </div>
+        </br>
+        <div class="container d-flex justify-content-center">
+            <div class="graphique">
+                <p>Veuillez réserver une chambre :</p>
+                <button class="button" onclick="FunctionReserv()">Réserver</button>
             </div>
         </div>
     </div>
+    </div>
+    <script src="js/etage.js"></script>
 </body>
 
 <?php $contenu = ob_get_clean(); ?>

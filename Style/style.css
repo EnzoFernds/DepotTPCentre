@@ -34,8 +34,9 @@
             margin: 20px 0;
         }
 
-        .button{
-            padding: 7px 4.5px;
-            font-size: small;
-            border-radius: 20%;
+        .button {
+            display: block;
+            margin: auto;
+            padding: 14px 15px;
+            border-radius: 15%;
         }
