@@ -1,6 +1,7 @@
 <title><?= $title = "Étages"; ?></title>
 <?php ob_start(); ?>
 <link rel="stylesheet" href="Style/style.css">
+
 <body>
     <div class="container mt-4">
         <!-- Le titre -->
@@ -22,7 +23,7 @@
                 ];
 
                 // Parcours des étages
-                foreach ($etages as $index => $etage) :
+                foreach ($etages as $index => $etage):
                     // Affichage de l'étiquette de l'étage
                     if ($index > 0) { // Ajout d'un séparateur entre les étages
                         echo '<hr class="tilted">';
@@ -33,10 +34,12 @@
                     $cellulesParLigne = 5; // Nombre de cellules par ligne
                     $nombreDeLignes = $etage['cellules'] / $cellulesParLigne;
 
-                    for ($i = 0; $i < $nombreDeLignes; $i++) :
+                    for ($i = 0; $i < $nombreDeLignes; $i++):
                         echo '<div class="row">';
-                        for ($j = 0; $j < $cellulesParLigne; $j++) :
-                            echo '<div class="cell"></div>';
+                        for ($j = 0; $j < $cellulesParLigne; $j++):
+                            echo '<div class="cell">
+                                    <button class="button" onclick="myFunction()">Réserver</button>
+                                  </div>';
                         endfor;
                         echo '</div>';
                     endfor;

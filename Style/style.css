@@ -33,4 +33,9 @@
             border: 1px solid #ccc;
             margin: 20px 0;
         }
-        
+
+        .button{
+            padding: 7px 4.5px;
+            font-size: small;
+            border-radius: 20%;
+        }

@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="card">
-                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="Image 1">
+                    <!-- <img src="https://via.placeholder.com/300" class="card-img-top" alt="Image 1"> -->
                     <div class="card-body">
                         <h5 class="card-title">Titre 1</h5>
                         <p class="card-text">Description rapide du contenu présenté ici.</p>
@@ -25,7 +25,7 @@
             
             <div class="col-md-4">
                 <div class="card">
-                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="Image 2">
+                    <!-- <img src="https://via.placeholder.com/300" class="card-img-top" alt="Image 2"> -->
                     <div class="card-body">
                         <h5 class="card-title">Titre 2</h5>
                         <p class="card-text">Une autre description de section ou d'article.</p>
@@ -36,7 +36,7 @@
             
             <div class="col-md-4">
                 <div class="card">
-                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="Image 3">
+                    <!-- <img src="https://via.placeholder.com/300" class="card-img-top" alt="Image 3"> -->
                     <div class="card-body">
                         <h5 class="card-title">Titre 3</h5>
                         <p class="card-text">Une autre section intéressante à explorer.</p>
