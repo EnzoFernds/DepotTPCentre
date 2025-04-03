@@ -21,10 +21,7 @@ function getTauxOccupation()
     // Préparer la requête SQL pour appeler la fonction stockée
     $stmt = $bdd->prepare("SELECT taux_remplissage()");
 
-    // Exécution de la requête
     $stmt->execute();
-
-    // Récupérer le résultat
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     return $result;
