@@ -13,6 +13,8 @@
                     patients();break;
                 case 'Repas':
                     repas();break;
+                case 'Formulaire Réservation':
+                    formreserv();break;
             }
         }
         else 

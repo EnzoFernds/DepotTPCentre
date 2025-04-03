@@ -20,4 +20,9 @@ function repas()
     require 'Vue/VueRepas.php';
 }
 
+function formreserv()
+{
+    require 'Vue/FormReservation.html';
+}
+
 ?>

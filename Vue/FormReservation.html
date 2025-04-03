@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire</title>
+    <link rel="stylesheet" href="Style/styleForm.css">
+
+</head>
+<body>
+    <form>
+        <label for="nom">Nom/Prénom :</label>
+        <input type="text" id="nom" name="nom" required>
+        
+        <label for="age">Âge :</label>
+        <input type="number" id="age" name="age" required>
+        
+        <label for="genre">Genre :</label>
+        <select id="genre" name="genre" required>
+            <option value="homme">Homme</option>
+            <option value="femme">Femme</option>
+            <option value="enfant">Enfant</option>
+        </select>
+        
+        <button type="submit">Envoyer</button>
+    </form>
+</body>
+</html>

@@ -53,12 +53,11 @@
         <div class="container d-flex justify-content-center">
             <div class="graphique">
                 <p>Veuillez réserver une chambre :</p>
-                <button class="button" onclick="FunctionReserv()">Réserver</button>
+                <a href="index.php?action=Formulaire Réservation" class="btn btn-primary">Réserver</a>
             </div>
         </div>
     </div>
     </div>
-    <script src="js/etage.js"></script>
 </body>
 
 <?php $contenu = ob_get_clean(); ?>
