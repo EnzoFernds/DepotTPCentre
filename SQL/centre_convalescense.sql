@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  jeu. 03 avr. 2025 à 13:52
+-- Généré le :  jeu. 03 avr. 2025 à 17:45
 -- Version du serveur :  5.7.17
 -- Version de PHP :  5.6.30
 
@@ -26,6 +26,28 @@ DELIMITER $$
 --
 -- Fonctions
 --
+CREATE DEFINER=`root`@`localhost` FUNCTION `taux_occupation_globale_par_classe` (`classe_pat` INT) RETURNS DECIMAL(5,2) BEGIN
+  DECLARE total_occupe INT DEFAULT 0;
+  DECLARE total_par_classe INT DEFAULT 0;
+  DECLARE taux DECIMAL(5,2);
+
+    SELECT COUNT(*) INTO total_occupe
+  FROM lit
+  WHERE estOccupe = 1;
+
+    SELECT COUNT(*) INTO total_par_classe
+  FROM patient
+  WHERE classe = classe_pat;
+
+    IF total_occupe = 0 THEN
+    SET taux = 0.00;
+  ELSE
+    SET taux = (total_par_classe / total_occupe) * 100;
+  END IF;
+
+  RETURN taux;
+END$$
+
 CREATE DEFINER=`root`@`localhost` FUNCTION `taux_remplissage` () RETURNS DECIMAL(5,2) BEGIN
   DECLARE nb_occupe INT;
   DECLARE nb_total INT;
@@ -112,7 +134,7 @@ CREATE TABLE `chambre` (
 
 INSERT INTO `chambre` (`id_chambre`, `numero_chambre`, `classe`, `nombreLits`, `litsOccupes`, `id_etage`) VALUES
 (1, 1001, 1, 3, 1, 1),
-(2, 1002, 2, 3, 0, 1),
+(2, 1002, 2, 3, 1, 1),
 (3, 1003, 3, 3, 0, 1),
 (4, 2001, 1, 3, 1, 2),
 (5, 3001, 1, 3, 1, 3);
@@ -157,7 +179,7 @@ INSERT INTO `lit` (`id_lit`, `estOccupe`, `id_chambre`) VALUES
 (1, 1, 1),
 (2, 0, 1),
 (3, 0, 1),
-(4, 0, 2),
+(4, 1, 2),
 (5, 0, 2),
 (6, 1, 4),
 (7, 0, 4),
@@ -187,7 +209,8 @@ CREATE TABLE `patient` (
 INSERT INTO `patient` (`id_patient`, `nom`, `age`, `classe`, `id_lit`) VALUES
 (1, 'Fernandes Enzo', 18, 1, 1),
 (3, 'test1', 18, 1, 6),
-(4, 'test2', 47, 1, 9);
+(4, 'test2', 47, 1, 9),
+(5, 'test3', 75, 2, 4);
 
 --
 -- Déclencheurs `patient`
@@ -308,7 +331,7 @@ ALTER TABLE `lit`
 -- AUTO_INCREMENT pour la table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `id_patient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;COMMIT;
+  MODIFY `id_patient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
