@@ -7,6 +7,7 @@ function accueil()
     $tauxEtg1 = getTauxRempEtg(1);
     $tauxEtg2 = getTauxRempEtg(2);
     $tauxEtg3 = getTauxRempEtg(3);
+    $tauxCls1 = getTauxOccupationCls();
     require 'Vue/Vueaccueil.php';
 }
 

@@ -45,3 +45,16 @@ function getTauxRempEtg($etage_id)
     // Vérifie si 'taux' existe dans le tableau et retourne la valeur correcte
     return isset($tauxEtg['taux']) ? $tauxEtg['taux'] : "Non disponible";
 }
+
+function getTauxOccupationCls()
+{
+    $bdd = getBdd();
+
+    $stmt = $bdd->prepare("SELECT taux_occupation_classe(:classe_id) AS taux");
+
+    $stmt->bindParam(':classe_id', $classe_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $tauxCls = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return isset($tauxCls['taux']) ? $tauxCls['taux'] : "Non disponible";
+}
