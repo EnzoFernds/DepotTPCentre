@@ -18,11 +18,43 @@ function getTauxOccupation()
 {
     $bdd = getBdd();
 
-    // Préparer la requête SQL pour appeler la fonction stockée
-    $stmt = $bdd->prepare("SELECT taux_remplissage()");
-
+    // Exécuter la requête SQL
+    $stmt = $bdd->prepare("SELECT taux_remplissage() AS taux");
     $stmt->execute();
+    
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    return $result;
+    // Vérifie si 'taux' existe dans le tableau et retourne la valeur correcte
+    if (isset($result['taux'])) {
+        return $result['taux'];
+    } else {
+        return "Non disponible";
+    }
+}
+
+function getTauxRempEtg($etage_id)
+{
+    $bdd = getBdd();
+
+    $stmt = $bdd->prepare("SELECT taux_remplissage_etage(:etage_id) AS taux");
+    
+    $stmt->bindParam(':etage_id', $etage_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $tauxEtg = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Vérifie si 'taux' existe dans le tableau et retourne la valeur correcte
+    return isset($tauxEtg['taux']) ? $tauxEtg['taux'] : "Non disponible";
+}
+
+function getTauxOccupationCls()
+{
+    $bdd = getBdd();
+
+    $stmt = $bdd->prepare("SELECT taux_occupation_classe(:classe_id) AS taux");
+
+    $stmt->bindParam(':classe_id', $classe_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $tauxCls = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return isset($tauxCls['taux']) ? $tauxCls['taux'] : "Non disponible";
 }
