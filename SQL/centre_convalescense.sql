@@ -26,7 +26,7 @@ DELIMITER $$
 --
 -- Fonctions
 --
-CREATE DEFINER=`root`@`localhost` FUNCTION `taux_occupation_globale_par_classe` (`classe_pat` INT) RETURNS DECIMAL(5,2) BEGIN
+CREATE DEFINER=`root`@`localhost` FUNCTION `taux_occupation_classe` (`classe_pat` INT) RETURNS DECIMAL(5,2) BEGIN
   DECLARE total_occupe INT DEFAULT 0;
   DECLARE total_par_classe INT DEFAULT 0;
   DECLARE taux DECIMAL(5,2);

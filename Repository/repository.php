@@ -21,7 +21,7 @@ function getTauxOccupation()
     // Exécuter la requête SQL
     $stmt = $bdd->prepare("SELECT taux_remplissage() AS taux");
     $stmt->execute();
-    
+
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     // Vérifie si 'taux' existe dans le tableau et retourne la valeur correcte
@@ -37,7 +37,7 @@ function getTauxRempEtg($etage_id)
     $bdd = getBdd();
 
     $stmt = $bdd->prepare("SELECT taux_remplissage_etage(:etage_id) AS taux");
-    
+
     $stmt->bindParam(':etage_id', $etage_id, PDO::PARAM_INT);
     $stmt->execute();
     $tauxEtg = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -46,7 +46,7 @@ function getTauxRempEtg($etage_id)
     return isset($tauxEtg['taux']) ? $tauxEtg['taux'] : "Non disponible";
 }
 
-function getTauxOccupationCls()
+function getTauxOccupationCls($classe_id)
 {
     $bdd = getBdd();
 

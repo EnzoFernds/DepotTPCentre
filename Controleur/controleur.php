@@ -7,7 +7,9 @@ function accueil()
     $tauxEtg1 = getTauxRempEtg(1);
     $tauxEtg2 = getTauxRempEtg(2);
     $tauxEtg3 = getTauxRempEtg(3);
-    $tauxCls1 = getTauxOccupationCls();
+    $tauxCls1 = getTauxOccupationCls(1);
+    $tauxCls2 = getTauxOccupationCls(2);
+    $tauxCls3 = getTauxOccupationCls(3);
     require 'Vue/Vueaccueil.php';
 }
 
@@ -29,6 +31,11 @@ function repas()
 function formreserv()
 {
     require 'Vue/FormReservation.html';
+}
+
+function erreur($msgErreur)
+{
+    require 'Vue/vueErreur.php';
 }
 
 ?>
