@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  jeu. 03 avr. 2025 à 17:45
+-- Généré le :  ven. 04 avr. 2025 à 11:26
 -- Version du serveur :  5.7.17
 -- Version de PHP :  5.6.30
 
@@ -92,6 +92,43 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `taux_remplissage_etage` (`etage_id` 
   RETURN taux;
 END$$
 
+CREATE DEFINER=`root`@`localhost` FUNCTION `trouver_lit_disponible` (`p_classe` INT) RETURNS INT(11) BEGIN
+  DECLARE lit_id INT DEFAULT -1;
+
+    SELECT l.id_lit INTO lit_id
+  FROM lit l
+  JOIN chambre c ON l.id_chambre = c.id_chambre
+  WHERE c.classe = p_classe
+    AND l.estOccupe = 0
+    AND c.id_chambre IN (
+      SELECT l2.id_chambre
+      FROM lit l2
+      JOIN chambre c2 ON l2.id_chambre = c2.id_chambre
+      WHERE l2.estOccupe = 1 AND c2.classe = p_classe
+      GROUP BY l2.id_chambre
+    )
+  LIMIT 1;
+
+    IF lit_id IS NULL THEN
+    SELECT l.id_lit INTO lit_id
+    FROM lit l
+    JOIN chambre c ON l.id_chambre = c.id_chambre
+    WHERE c.classe = p_classe
+      AND l.estOccupe = 0
+    GROUP BY c.id_chambre
+    HAVING COUNT(*) = (
+      SELECT COUNT(*) FROM lit l2 WHERE l2.id_chambre = c.id_chambre
+    )
+    LIMIT 1;
+  END IF;
+
+    IF lit_id IS NULL THEN
+    SET lit_id = -1;
+  END IF;
+
+  RETURN lit_id;
+END$$
+
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -133,7 +170,7 @@ CREATE TABLE `chambre` (
 --
 
 INSERT INTO `chambre` (`id_chambre`, `numero_chambre`, `classe`, `nombreLits`, `litsOccupes`, `id_etage`) VALUES
-(1, 1001, 1, 3, 1, 1),
+(1, 1001, 1, 3, 3, 1),
 (2, 1002, 2, 3, 1, 1),
 (3, 1003, 3, 3, 0, 1),
 (4, 2001, 1, 3, 1, 2),
@@ -177,8 +214,8 @@ CREATE TABLE `lit` (
 
 INSERT INTO `lit` (`id_lit`, `estOccupe`, `id_chambre`) VALUES
 (1, 1, 1),
-(2, 0, 1),
-(3, 0, 1),
+(2, 1, 1),
+(3, 1, 1),
 (4, 1, 2),
 (5, 0, 2),
 (6, 1, 4),
@@ -210,7 +247,9 @@ INSERT INTO `patient` (`id_patient`, `nom`, `age`, `classe`, `id_lit`) VALUES
 (1, 'Fernandes Enzo', 18, 1, 1),
 (3, 'test1', 18, 1, 6),
 (4, 'test2', 47, 1, 9),
-(5, 'test3', 75, 2, 4);
+(5, 'test3', 75, 2, 4),
+(6, 'test4', 45, 1, 2),
+(7, 'test5', 45, 1, 3);
 
 --
 -- Déclencheurs `patient`
@@ -331,7 +370,7 @@ ALTER TABLE `lit`
 -- AUTO_INCREMENT pour la table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `id_patient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;COMMIT;
+  MODIFY `id_patient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
