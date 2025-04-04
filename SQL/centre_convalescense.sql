@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  jeu. 03 avr. 2025 à 17:45
+-- Généré le :  ven. 04 avr. 2025 à 10:20
 -- Version du serveur :  5.7.17
 -- Version de PHP :  5.6.30
 
@@ -26,7 +26,7 @@ DELIMITER $$
 --
 -- Fonctions
 --
-CREATE DEFINER=`root`@`localhost` FUNCTION `taux_occupation_globale_par_classe` (`classe_pat` INT) RETURNS DECIMAL(5,2) BEGIN
+CREATE DEFINER=`root`@`localhost` FUNCTION `taux_occupation_classe` (`classe_pat` INT) RETURNS DECIMAL(5,2) BEGIN
   DECLARE total_occupe INT DEFAULT 0;
   DECLARE total_par_classe INT DEFAULT 0;
   DECLARE taux DECIMAL(5,2);
