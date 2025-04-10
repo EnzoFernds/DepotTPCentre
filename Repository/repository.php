@@ -72,35 +72,29 @@ function ajoutPatient($nom, $age, $classe)
 
         $stmt->execute();
 
-        header("Location: index.php?success=true");
+        $id_patient = $bdd->lastInsertId();
+
+        // Appel de la fonction stockée pour trouver un lit disponible
+        $sql = "SELECT trouver_lit_disponible(:classe) AS id_lit";
+        $stmt = $bdd->prepare($sql);
+        $stmt->execute([':classe' => $classe]);
+
+        // Récupérer le résultat du SELECT
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $id_lit = $result['id_lit'];
+
+        // Si un lit est trouvé, on l'attribue au patient
+        if ($id_lit !== null && $id_lit != -1) {
+            $update = $bdd->prepare("UPDATE patient SET id_lit = :id_lit WHERE id_patient = :id_patient");
+            $update->execute([
+                ':id_lit' => $id_lit,
+                ':id_patient' => $id_patient
+            ]);
+        }
+
+        header("Location: index.php?action=Attribution Lit");
         exit();
-    } catch (PDOException $e) {
-        header("Location: index.php?error=" . urlencode("Erreur BDD : " . $e->getMessage()));
-        exit();
-    }
-}
-
-function attributionLit()
-{
-    $bdd = getBdd();
-
-    $id_patient = $bdd->lastInsertId();
-
-    // Appel de la fonction stockée pour trouver un lit disponible
-    $sql = "SELECT trouver_lit_disponible(:classe) AS id_lit";
-    $stmt = $bdd->prepare($sql);
-    $stmt->execute([':classe' => $classe]);
-
-    // Récupérer le résultat du SELECT
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    $id_lit = $result['id_lit'];
-
-    // Si un lit est trouvé, on l'attribue au patient
-    if ($id_lit !== null && $id_lit != -1) {
-        $update = $bdd->prepare("UPDATE patient SET id_lit = :id_lit WHERE id = :id_patient");
-        $update->execute([
-            ':id_lit' => $id_lit,
-            ':id_patient' => $id_patient
-        ]);
+    } catch (Exception $e) {
+        erreur($e->getMessage());
     }
 }

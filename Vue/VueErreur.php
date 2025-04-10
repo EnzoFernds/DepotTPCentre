@@ -16,6 +16,3 @@
         });
     });
 </script>
-
-<?php $contenu = ob_get_clean(); ?>
-<?php require 'Gabarit/Gabarit.php'; ?>

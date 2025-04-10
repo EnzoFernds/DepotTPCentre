@@ -17,7 +17,7 @@
     }
     ?>
 
-    <form action="index.php?action=Attribution Lit" method="POST">
+    <form method="POST">
         <label for="nom">Nom/Prénom :</label>
         <input type="text" id="nom" name="nom" required>
 

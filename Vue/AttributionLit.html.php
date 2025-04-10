@@ -1,31 +1,35 @@
 <?php
-    if (isset($_GET['success']) && $_GET['success'] == "true" && isset($_GET['id_lit'])) {
-        $idLit = htmlspecialchars($_GET['id_lit']);
-        echo "
-        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                Swal.fire({
-                    title: 'Patient ajouté !',
-                    text: 'Lit attribué : #$idLit',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                });
-            });
-        </script>";
-    } elseif (isset($_GET['error'])) {
-        $error = htmlspecialchars($_GET['error']);
-        echo "
-        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                Swal.fire({
-                    title: 'Erreur !',
-                    text: '$error',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-            });
-        </script>";
-    }
+// Vérifie si l'ID du lit est passé en paramètre dans l'URL
+$id_lit = isset($_GET['id_lit']) ? $_GET['id_lit'] : null;
 ?>
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Réservation</title>
+    <link rel="stylesheet" href="Style/styleForm.css">
+</head>
+
+<body>
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const idLit = "<?php echo $id_lit; ?>";
+            console.log('idLit:', idLit); // Affiche dans la console pour déboguer
+
+            Swal.fire({
+                title: 'Patient ajouté !',
+                text: idLit ? 'Lit attribué : #' + idLit : 'Aucun lit attribué.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                window.location.href = 'index.php?action=Accueil'; // Redirige vers la page d'accueil
+            });
+        });
+    </script>
+</body>
+
+</html>
