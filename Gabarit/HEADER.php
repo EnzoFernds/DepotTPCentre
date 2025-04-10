@@ -4,7 +4,7 @@
             <nav>
                 <ul class="nav">
                     <li class="nav-item"><a class="nav-link text-white" href="index.php?action=Accueil">Accueil</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="index.php?action=Étages">Étages</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="index.php?action=Etages">Etages</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="index.php?action=Patients">Patients</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="index.php?action=Repas">Repas</a></li>
                 </ul>

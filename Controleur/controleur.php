@@ -30,12 +30,37 @@ function repas()
 
 function formreserv()
 {
-    require 'Vue/FormReservation.html';
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $nom = isset($_POST['nom']) ? trim($_POST['nom']) : '';
+        $age = isset($_POST['age']) ? (int) $_POST['age'] : 0;
+        $classe = isset($_POST['classe']) ? trim($_POST['classe']) : '';
+
+        if (empty($nom) || empty($age) || empty($classe)) {
+            header("Location: index.php?error=" . urlencode("Tous les champs sont obligatoires"));
+            exit();
+        }
+
+        if ($age < 1) {
+            header("Location: index.php?error=" . urlencode("Âge invalide"));
+            exit();
+        }
+
+        ajoutPatient($nom, $age, $classe);
+
+    }
+
+    require 'Vue/FormReservation.html.php';
+
 }
 
 function erreur($msgErreur)
 {
     require 'Vue/vueErreur.php';
+}
+
+function attributlit()
+{
+    require 'Vue/AttributionLit.html.php';
 }
 
 ?>
