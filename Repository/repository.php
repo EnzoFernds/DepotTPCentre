@@ -92,7 +92,7 @@ function ajoutPatient($nom, $age, $classe)
             ]);
         }
 
-        header("Location: index.php?action=Attribution Lit");
+        header("Location: index.php?action=Attribution Lit&id_lit=$id_lit");
         exit();
     } catch (Exception $e) {
         erreur($e->getMessage());

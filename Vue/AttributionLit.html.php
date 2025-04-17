@@ -21,8 +21,8 @@ $id_lit = isset($_GET['id_lit']) ? $_GET['id_lit'] : null;
             console.log('idLit:', idLit); // Affiche dans la console pour déboguer
 
             Swal.fire({
-                title: 'Patient ajouté !',
-                text: idLit ? 'Lit attribué : #' + idLit : 'Aucun lit attribué.',
+                text: 'Patient ajouté !',
+                title: idLit ? 'Lit attribué : ' + idLit : 'Aucun lit attribué.',
                 icon: 'success',
                 confirmButtonText: 'OK'
             }).then(() => {
