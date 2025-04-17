@@ -1,4 +1,4 @@
-<title><?= $title = "Étages"; ?></title>
+<title><?= $title = "Etages"; ?></title>
 <?php ob_start(); ?>
 <link rel="stylesheet" href="Style/style.css">
 
@@ -7,7 +7,7 @@
         <!-- Le titre -->
         <div class="row mb-4">
             <div class="col">
-                <h2 class="text-center">Étages</h2>
+                <h2 class="text-center">Etages</h2>
             </div>
         </div>
 
@@ -15,17 +15,17 @@
         <div class="container d-flex justify-content-center">
             <div class="graphique">
                 <?php
-                // Tableau des étages avec le nombre de cellules par étage
+                // Tableau des Etages avec le nombre de cellules par étage
                 $etages = [
                     ['nom' => '3ème Etage', 'cellules' => 10],
                     ['nom' => '2ème Etage', 'cellules' => 10],
                     ['nom' => '1er Etage', 'cellules' => 10],
                 ];
 
-                // Parcours des étages
+                // Parcours des Etages
                 foreach ($etages as $index => $etage):
                     // Affichage de l'étiquette de l'étage
-                    if ($index > 0) { // Ajout d'un séparateur entre les étages
+                    if ($index > 0) { // Ajout d'un séparateur entre les Etages
                         echo '<hr class="tilted">';
                     }
                     echo "<b>{$etage['nom']}</b>";

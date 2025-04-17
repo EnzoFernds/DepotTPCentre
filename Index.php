@@ -7,7 +7,7 @@
             {  
                 case 'Accueil':
                     accueil();break;
-                case 'Étages':
+                case 'Etages':
                     etages();break;
                 case 'Patients':
                     patients();break;
@@ -15,6 +15,8 @@
                     repas();break;
                 case 'Formulaire Réservation':
                     formreserv();break;
+                case 'Attribution Lit';
+                    attributlit();break;
             }
         }
         else 

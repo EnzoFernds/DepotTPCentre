@@ -1,3 +1,4 @@
+<title><?= $title = "Erreur"; ?></title>
 <?php ob_start(); ?>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -15,6 +16,3 @@
         });
     });
 </script>
-
-<?php $contenu = ob_get_clean(); ?>
-<?php require 'Gabarit/Gabarit.php'; ?>
