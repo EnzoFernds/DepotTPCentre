@@ -27,6 +27,7 @@ DELIMITER $$
 -- Fonctions
 --
 CREATE DEFINER=`root`@`localhost` FUNCTION `taux_occupation_classe` (`classe_pat` INT) RETURNS DECIMAL(5,2) BEGIN
+CREATE DEFINER=`root`@`localhost` FUNCTION `taux_occupation_classe` (`classe_pat` INT) RETURNS DECIMAL(5,2) BEGIN
   DECLARE total_occupe INT DEFAULT 0;
   DECLARE total_par_classe INT DEFAULT 0;
   DECLARE taux DECIMAL(5,2);
@@ -129,6 +130,43 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `trouver_lit_disponible` (`p_classe` 
   RETURN lit_id;
 END$$
 
+CREATE DEFINER=`root`@`localhost` FUNCTION `trouver_lit_disponible` (`p_classe` INT) RETURNS INT(11) BEGIN
+  DECLARE lit_id INT DEFAULT -1;
+
+    SELECT l.id_lit INTO lit_id
+  FROM lit l
+  JOIN chambre c ON l.id_chambre = c.id_chambre
+  WHERE c.classe = p_classe
+    AND l.estOccupe = 0
+    AND c.id_chambre IN (
+      SELECT l2.id_chambre
+      FROM lit l2
+      JOIN chambre c2 ON l2.id_chambre = c2.id_chambre
+      WHERE l2.estOccupe = 1 AND c2.classe = p_classe
+      GROUP BY l2.id_chambre
+    )
+  LIMIT 1;
+
+    IF lit_id IS NULL THEN
+    SELECT l.id_lit INTO lit_id
+    FROM lit l
+    JOIN chambre c ON l.id_chambre = c.id_chambre
+    WHERE c.classe = p_classe
+      AND l.estOccupe = 0
+    GROUP BY c.id_chambre
+    HAVING COUNT(*) = (
+      SELECT COUNT(*) FROM lit l2 WHERE l2.id_chambre = c.id_chambre
+    )
+    LIMIT 1;
+  END IF;
+
+    IF lit_id IS NULL THEN
+    SET lit_id = -1;
+  END IF;
+
+  RETURN lit_id;
+END$$
+
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -170,6 +208,7 @@ CREATE TABLE `chambre` (
 --
 
 INSERT INTO `chambre` (`id_chambre`, `numero_chambre`, `classe`, `nombreLits`, `litsOccupes`, `id_etage`) VALUES
+(1, 1001, 1, 3, 3, 1),
 (1, 1001, 1, 3, 3, 1),
 (2, 1002, 2, 3, 1, 1),
 (3, 1003, 3, 3, 0, 1),
@@ -214,6 +253,8 @@ CREATE TABLE `lit` (
 
 INSERT INTO `lit` (`id_lit`, `estOccupe`, `id_chambre`) VALUES
 (1, 1, 1),
+(2, 1, 1),
+(3, 1, 1),
 (2, 1, 1),
 (3, 1, 1),
 (4, 1, 2),
