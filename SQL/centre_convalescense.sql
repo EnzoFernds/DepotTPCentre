@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  jeu. 17 avr. 2025 à 13:40
+-- Généré le :  jeu. 17 avr. 2025 à 14:43
 -- Version du serveur :  5.7.17
 -- Version de PHP :  5.6.30
 
@@ -236,21 +236,22 @@ CREATE TABLE `patient` (
   `nom` varchar(255) NOT NULL,
   `age` int(11) NOT NULL,
   `classe` int(11) DEFAULT NULL,
-  `id_lit` int(11) DEFAULT NULL
+  `id_lit` int(11) DEFAULT NULL,
+  `etat` tinyint(4) DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `patient`
 --
 
-INSERT INTO `patient` (`id_patient`, `nom`, `age`, `classe`, `id_lit`) VALUES
-(1, 'Fernandes Enzo', 18, 1, 1),
-(3, 'test1', 18, 1, 6),
-(4, 'test2', 47, 1, 9),
-(5, 'test3', 75, 2, 4),
-(6, 'test4', 45, 1, 2),
-(7, 'test5', 45, 1, 3),
-(10, 'test', 18, 1, 7);
+INSERT INTO `patient` (`id_patient`, `nom`, `age`, `classe`, `id_lit`, `etat`) VALUES
+(1, 'Fernandes Enzo', 18, 1, 1, 0),
+(3, 'test1', 18, 1, 6, 0),
+(4, 'test2', 47, 1, 9, 0),
+(5, 'test3', 75, 2, 4, 0),
+(6, 'test4', 45, 1, 2, 0),
+(7, 'test5', 45, 1, 3, 0),
+(10, 'test', 18, 1, NULL, 1);
 
 --
 -- Déclencheurs `patient`
@@ -285,6 +286,14 @@ CREATE TRIGGER `TAI_listOccuper` AFTER INSERT ON `patient` FOR EACH ROW BEGIN
     FROM lit
     WHERE id_lit = NEW.id_lit
   );
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `TAU_etatpatient` BEFORE UPDATE ON `patient` FOR EACH ROW BEGIN
+  IF NEW.id_lit IS NULL THEN
+    SET NEW.etat = 1;
+  END IF;
 END
 $$
 DELIMITER ;
