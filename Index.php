@@ -15,6 +15,8 @@
                     repas();break;
                 case 'Formulaire Réservation':
                     formreserv();break;
+                case 'Supprimer un utilisateur':
+                    deluser();break;
             }
         }
         else 

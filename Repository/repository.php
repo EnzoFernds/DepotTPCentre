@@ -10,7 +10,9 @@ function getPatient()
 {
     $bdd = getBdd();
 
-    $patient = $bdd->query("SELECT * FROM `patient`");
+    $patient = $bdd->query("SELECT * FROM `patient` 
+    INNER JOIN lit ON patient.id_lit = lit.id_lit 
+    INNER JOIN chambre ON lit.id_chambre = chambre.id_chambre");
     return $patient;
 }
 
@@ -25,4 +27,14 @@ function getTauxOccupation()
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     return $result;
+}
+function delPatients($id_patient)
+{
+    $bdd = getBdd();
+
+    $patient = $bdd->query("DELETE FROM patient
+    WHERE id_patient = :id_patient");
+    $patient->bindParam(':id_patient',$id_patient,PDO::PARAM_INT);
+    $patient->execute();
+    return $patient;
 }

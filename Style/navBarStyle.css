@@ -34,7 +34,7 @@ body {
 
 .topnav .search-container {
     float: right;
-    
+
 }
 
 .topnav input[type=text] {
@@ -78,4 +78,18 @@ body {
     .topnav input[type=text] {
         border: 1px solid #ccc;
     }
+}
+
+h2 {
+    font-family: "Times New Roman", Times, serif;
+    color: red;
+}
+
+.col {
+    font-family: "Times New Roman", Times, serif;
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    border: 3px solid black;
+    padding: 10px
 }
