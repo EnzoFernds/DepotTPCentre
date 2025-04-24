@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  jeu. 17 avr. 2025 à 13:40
+-- Généré le :  jeu. 24 avr. 2025 à 14:17
 -- Version du serveur :  5.7.17
 -- Version de PHP :  5.6.30
 
@@ -173,8 +173,8 @@ INSERT INTO `chambre` (`id_chambre`, `numero_chambre`, `classe`, `nombreLits`, `
 (1, 1001, 1, 3, 3, 1),
 (2, 1002, 2, 3, 1, 1),
 (3, 1003, 3, 3, 0, 1),
-(4, 2001, 1, 3, 1, 2),
-(5, 3001, 1, 3, 1, 3);
+(4, 2001, 1, 3, 2, 2),
+(5, 3001, 1, 3, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -220,10 +220,10 @@ INSERT INTO `lit` (`id_lit`, `estOccupe`, `id_chambre`) VALUES
 (5, 0, 2),
 (6, 1, 4),
 (7, 1, 4),
-(8, 0, 4),
+(8, 1, 4),
 (9, 1, 5),
-(10, 0, 5),
-(11, 0, 5);
+(10, 1, 5),
+(11, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -236,21 +236,24 @@ CREATE TABLE `patient` (
   `nom` varchar(255) NOT NULL,
   `age` int(11) NOT NULL,
   `classe` int(11) DEFAULT NULL,
-  `id_lit` int(11) DEFAULT NULL
+  `id_lit` int(11) DEFAULT NULL,
+  `etat` tinyint(4) DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `patient`
 --
 
-INSERT INTO `patient` (`id_patient`, `nom`, `age`, `classe`, `id_lit`) VALUES
-(1, 'Fernandes Enzo', 18, 1, 1),
-(3, 'test1', 18, 1, 6),
-(4, 'test2', 47, 1, 9),
-(5, 'test3', 75, 2, 4),
-(6, 'test4', 45, 1, 2),
-(7, 'test5', 45, 1, 3),
-(10, 'test', 18, 1, 7);
+INSERT INTO `patient` (`id_patient`, `nom`, `age`, `classe`, `id_lit`, `etat`) VALUES
+(1, 'Fernandes Enzo', 18, 1, 1, 0),
+(3, 'test1', 18, 1, 6, 0),
+(4, 'test2', 47, 1, 9, 0),
+(5, 'test3', 75, 2, 4, 0),
+(6, 'test4', 45, 1, 2, 0),
+(7, 'test5', 45, 1, 3, 0),
+(12, 'test45', 65, 1, 10, 0),
+(11, 'test45', 46, 1, 8, 0),
+(32, 'test45', 45, 1, 11, 0);
 
 --
 -- Déclencheurs `patient`
@@ -390,7 +393,7 @@ ALTER TABLE `lit`
 -- AUTO_INCREMENT pour la table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `id_patient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;COMMIT;
+  MODIFY `id_patient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

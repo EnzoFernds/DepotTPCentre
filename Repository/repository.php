@@ -90,6 +90,11 @@ function ajoutPatient($nom, $age, $classe)
                 ':id_lit' => $id_lit,
                 ':id_patient' => $id_patient
             ]);
+        } else {
+            $update = $bdd->prepare("UPDATE patient SET etat = 1 WHERE id_patient = :id_patient;");
+            $update->execute([
+                ':id_patient' => $id_patient
+            ]);
         }
 
         header("Location: index.php?action=Attribution Lit&id_lit=$id_lit");
