@@ -98,3 +98,87 @@ function ajoutPatient($nom, $age, $classe)
         erreur($e->getMessage());
     }
 }
+
+// function getNumeroChambresParEtage($id_etage)
+// {
+//     $bdd = getBdd();
+//     $stmt = $bdd->prepare("SELECT DISTINCT numero_chambre FROM chambre WHERE id_etage = :id_etage ORDER BY numero_chambre ASC");
+//     $stmt->bindParam(':id_etage', $id_etage, PDO::PARAM_INT);
+//     $stmt->execute();
+//     return $stmt->fetchAll(PDO::FETCH_COLUMN);
+// }
+// function getChambresParEtage($id_etage)
+// {
+//     $bdd = getBdd();
+//     $stmt = $bdd->prepare("SELECT id_chambre, numero_chambre FROM chambre WHERE id_etage = :id_etage ORDER BY numero_chambre ASC");
+//     $stmt->bindParam(':id_etage', $id_etage, PDO::PARAM_INT);
+//     $stmt->execute();
+//     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+// }
+
+
+function compterLitsOccupesParEtage($id_etage)
+{
+    $bdd = getBdd();
+    $sql = "
+        SELECT COUNT(*) 
+        FROM lit 
+        INNER JOIN chambre ON lit.id_chambre = chambre.id_chambre
+        WHERE chambre.id_etage = :id_etage AND lit.EstOccupe = 1";
+    $stmt = $bdd->prepare($sql);
+    $stmt->bindParam(':id_etage', $id_etage, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchColumn();
+}
+
+function compterLitsTotalParEtage($id_etage)
+{
+    $bdd = getBdd();
+    $sql = "
+        SELECT COUNT(*) 
+        FROM lit 
+        INNER JOIN chambre ON lit.id_chambre = chambre.id_chambre
+        WHERE chambre.id_etage = :id_etage";
+    $stmt = $bdd->prepare($sql);
+    $stmt->bindParam(':id_etage', $id_etage, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchColumn();
+}
+
+// function compterLitsOccupesParChambre($id_chambre)
+// {
+//     $bdd = getBdd();
+//     $stmt = $bdd->prepare("SELECT COUNT(*) FROM lit WHERE id_chambre = :id_chambre AND EstOccupe = 1");
+//     $stmt->bindParam(':id_chambre', $id_chambre, PDO::PARAM_INT);
+//     $stmt->execute();
+//     return $stmt->fetchColumn();
+// }
+
+// function compterLitsTotalParChambre($id_chambre)
+// {
+//     $bdd = getBdd();
+//     $stmt = $bdd->prepare("SELECT COUNT(*) FROM lit WHERE id_chambre = :id_chambre");
+//     $stmt->bindParam(':id_chambre', $id_chambre, PDO::PARAM_INT);
+//     $stmt->execute();
+//     return $stmt->fetchColumn();
+// }
+
+function getChambresEtOccupationParEtage($id_etage)
+{
+    $bdd = getBdd();
+    $stmt = $bdd->prepare("
+        SELECT 
+            c.id_chambre, 
+            c.numero_chambre, 
+            COUNT(l.id_lit) AS nb_lits_total,
+            SUM(l.EstOccupe = 1) AS nb_lits_occupees
+        FROM chambre c
+        LEFT JOIN lit l ON l.id_chambre = c.id_chambre
+        WHERE c.id_etage = :id_etage
+        GROUP BY c.id_chambre, c.numero_chambre
+        ORDER BY c.numero_chambre
+    ");
+    $stmt->bindParam(':id_etage', $id_etage, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}

@@ -15,8 +15,28 @@ function accueil()
 
 function etages()
 {
+    $etagesSource = [
+        ['id' => 3, 'nom' => '3ème Etage'],
+        ['id' => 2, 'nom' => '2ème Etage'],
+        ['id' => 1, 'nom' => '1er Etage'],
+    ];
+
+    $etages = [];
+
+    foreach ($etagesSource as $etage) {
+        $chambres = getChambresEtOccupationParEtage($etage['id']);
+
+
+        $etages[] = [
+            'id' => $etage['id'],
+            'nom' => $etage['nom'],
+            'chambres' => $chambres
+        ];
+    }
+
     require 'Vue/VueEtages.php';
 }
+
 
 function patients()
 {

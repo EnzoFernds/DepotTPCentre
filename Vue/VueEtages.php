@@ -1,54 +1,44 @@
-<title><?= $title = "Etages"; ?></title>
 <?php ob_start(); ?>
 <link rel="stylesheet" href="Style/style.css">
+<title><?= $title = "Étage"; ?></title>
 
 <body>
     <div class="container mt-4">
-        <!-- Le titre -->
         <div class="row mb-4">
             <div class="col">
                 <h2 class="text-center">Etages</h2>
             </div>
         </div>
 
-        <!-- Représentation graphique -->
         <div class="container d-flex justify-content-center">
             <div class="graphique">
-                <?php
-                // Tableau des Etages avec le nombre de cellules par étage
-                $etages = [
-                    ['nom' => '3ème Etage', 'cellules' => 10],
-                    ['nom' => '2ème Etage', 'cellules' => 10],
-                    ['nom' => '1er Etage', 'cellules' => 10],
-                ];
+                <?php foreach ($etages as $etage): ?>
+                    <div class="etage mb-4 p-3 rounded border bg-light">
+                        <h4 class="text-center"><?= $etage['nom'] ?></h4>
+                        <p class="text-center">
+                            <span class="badge bg-secondary">
+                                Lits occupés : <?= compterLitsOccupesParEtage($etage['id']) ?> /
+                                <?= compterLitsTotalParEtage($etage['id']) ?>
+                            </span>
+                        </p>
 
-                // Parcours des Etages
-                foreach ($etages as $index => $etage):
-                    // Affichage de l'étiquette de l'étage
-                    if ($index > 0) { // Ajout d'un séparateur entre les Etages
-                        echo '<hr class="tilted">';
-                    }
-                    echo "<b>{$etage['nom']}</b>";
+                        <div class="d-flex flex-wrap justify-content-center gap-3">
+                            <?php foreach ($etage['chambres'] as $chambre): ?>
+                                <div class="card text-center" style="width: 5rem;">
+                                    <div class="card-body p-2">
+                                        <strong><?= $chambre['numero_chambre'] ?></strong><br>
+                                        <small><?= $chambre['nb_lits_occupees'] ?> / <?= $chambre['nb_lits_total'] ?></small>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
 
-                    // Création des lignes de cellules
-                    $cellulesParLigne = 5; // Nombre de cellules par ligne
-                    $nombreDeLignes = $etage['cellules'] / $cellulesParLigne;
 
-                    for ($i = 0; $i < $nombreDeLignes; $i++):
-                        echo '<div class="row">';
-                        for ($j = 0; $j < $cellulesParLigne; $j++):
-                            echo '<div class="cell">
-
-                                  </div>';
-                        endfor;
-                        echo '</div>';
-                    endfor;
-                endforeach;
-                ?>
-                <div>
-                </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
+
         </br>
         <div class="container d-flex justify-content-center">
             <div class="graphique">
@@ -56,7 +46,6 @@
                 <a href="index.php?action=Formulaire Réservation" class="btn btn-primary">Réserver</a>
             </div>
         </div>
-    </div>
     </div>
 </body>
 
