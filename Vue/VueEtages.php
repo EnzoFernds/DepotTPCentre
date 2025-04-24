@@ -1,5 +1,5 @@
 <?php ob_start(); ?>
-<link rel="stylesheet" href="Style/style.css">
+<link rel="stylesheet" href="Style/etageStyle.css">
 <title><?= $title = "Étage"; ?></title>
 
 <body>

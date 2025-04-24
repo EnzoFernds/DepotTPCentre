@@ -1,0 +1,125 @@
+/* Importation d’une police moderne depuis Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+:root {
+  --primary-color: #4a90e2;
+  --secondary-color: #f5f7fa;
+  --text-color: #333;
+  --badge-bg: #6c757d;
+  --card-bg: #ffffff;
+  --card-shadow: rgba(0, 0, 0, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+}
+
+h2, h4 {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.container {
+  padding: 1rem 2rem;
+}
+
+/* Style général des étages */
+.graphique .etage {
+  background-color: var(--card-bg);
+  border-radius: 1rem;
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px var(--card-shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+  width: 100%;
+  max-width: 600px;
+}
+
+.graphique .etage:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px var(--card-shadow);
+}
+
+/* En-tête de chaque étage */
+.etage h4 {
+  margin-bottom: 0.5rem;
+}
+
+/* Badge lits */
+.badge {
+  font-size: 0.9rem;
+  background-color: var(--badge-bg) !important;
+  color: #fff !important;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+}
+
+/* Grille des chambres */
+.etage .d-flex {
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Cartes chambres */
+.etage .card {
+  width: 5rem;
+  border: none;
+  background-color: var(--secondary-color);
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px var(--card-shadow);
+  transition: transform 0.15s;
+}
+
+.etage .card:hover {
+  transform: translateY(-3px);
+}
+
+.etage .card-body {
+  padding: 0.5rem;
+}
+
+.etage .card-body strong {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+
+.etage .card-body small {
+  color: #666;
+}
+
+/* Bouton */
+.btn-primary {
+  background-color: var(--primary-color);
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #3a78c2;
+}
+
+/* Responsive tweaks */
+@media (min-width: 768px) {
+  .graphique {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .etage {
+    flex: 1 1 calc(50% - 2rem);
+    max-width: calc(50% - 2rem);
+  }
+}
