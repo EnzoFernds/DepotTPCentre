@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  jeu. 24 avr. 2025 à 14:17
+-- Généré le :  jeu. 24 avr. 2025 à 15:12
 -- Version du serveur :  5.7.17
 -- Version de PHP :  5.6.30
 
@@ -174,7 +174,11 @@ INSERT INTO `chambre` (`id_chambre`, `numero_chambre`, `classe`, `nombreLits`, `
 (2, 1002, 2, 3, 1, 1),
 (3, 1003, 3, 3, 0, 1),
 (4, 2001, 1, 3, 2, 2),
-(5, 3001, 1, 3, 3, 3);
+(5, 3001, 1, 3, 3, 3),
+(6, 2002, 2, 3, 0, 2),
+(7, 2003, 3, 3, 0, 2),
+(8, 3002, 2, 3, 0, 3),
+(9, 3003, 3, 3, 0, 3);
 
 -- --------------------------------------------------------
 
@@ -223,7 +227,23 @@ INSERT INTO `lit` (`id_lit`, `estOccupe`, `id_chambre`) VALUES
 (8, 1, 4),
 (9, 1, 5),
 (10, 1, 5),
-(11, 1, 5);
+(11, 1, 5),
+(12, 0, 3),
+(13, 0, 3),
+(14, 0, 3),
+(15, 0, 2),
+(16, 0, 6),
+(17, 0, 6),
+(18, 0, 6),
+(19, 0, 7),
+(20, 0, 7),
+(21, 0, 7),
+(22, 0, 8),
+(23, 0, 8),
+(24, 0, 8),
+(27, 0, 9),
+(28, 0, 9),
+(29, 0, 9);
 
 -- --------------------------------------------------------
 
@@ -378,7 +398,7 @@ ALTER TABLE `centreconvalescence`
 -- AUTO_INCREMENT pour la table `chambre`
 --
 ALTER TABLE `chambre`
-  MODIFY `id_chambre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_chambre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT pour la table `etage`
 --
@@ -388,7 +408,7 @@ ALTER TABLE `etage`
 -- AUTO_INCREMENT pour la table `lit`
 --
 ALTER TABLE `lit`
-  MODIFY `id_lit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_lit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT pour la table `patient`
 --
