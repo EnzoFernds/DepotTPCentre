@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  jeu. 17 avr. 2025 à 14:43
+-- Généré le :  jeu. 24 avr. 2025 à 14:17
 -- Version du serveur :  5.7.17
 -- Version de PHP :  5.6.30
 
@@ -173,8 +173,8 @@ INSERT INTO `chambre` (`id_chambre`, `numero_chambre`, `classe`, `nombreLits`, `
 (1, 1001, 1, 3, 3, 1),
 (2, 1002, 2, 3, 1, 1),
 (3, 1003, 3, 3, 0, 1),
-(4, 2001, 1, 3, 1, 2),
-(5, 3001, 1, 3, 1, 3);
+(4, 2001, 1, 3, 2, 2),
+(5, 3001, 1, 3, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -220,10 +220,10 @@ INSERT INTO `lit` (`id_lit`, `estOccupe`, `id_chambre`) VALUES
 (5, 0, 2),
 (6, 1, 4),
 (7, 1, 4),
-(8, 0, 4),
+(8, 1, 4),
 (9, 1, 5),
-(10, 0, 5),
-(11, 0, 5);
+(10, 1, 5),
+(11, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -251,7 +251,9 @@ INSERT INTO `patient` (`id_patient`, `nom`, `age`, `classe`, `id_lit`, `etat`) V
 (5, 'test3', 75, 2, 4, 0),
 (6, 'test4', 45, 1, 2, 0),
 (7, 'test5', 45, 1, 3, 0),
-(10, 'test', 18, 1, NULL, 1);
+(12, 'test45', 65, 1, 10, 0),
+(11, 'test45', 46, 1, 8, 0),
+(32, 'test45', 45, 1, 11, 0);
 
 --
 -- Déclencheurs `patient`
@@ -286,14 +288,6 @@ CREATE TRIGGER `TAI_listOccuper` AFTER INSERT ON `patient` FOR EACH ROW BEGIN
     FROM lit
     WHERE id_lit = NEW.id_lit
   );
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `TAU_etatpatient` BEFORE UPDATE ON `patient` FOR EACH ROW BEGIN
-  IF NEW.id_lit IS NULL THEN
-    SET NEW.etat = 1;
-  END IF;
 END
 $$
 DELIMITER ;
@@ -399,7 +393,7 @@ ALTER TABLE `lit`
 -- AUTO_INCREMENT pour la table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `id_patient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;COMMIT;
+  MODIFY `id_patient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
