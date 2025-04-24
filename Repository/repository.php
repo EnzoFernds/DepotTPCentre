@@ -32,8 +32,7 @@ function delPatients($id_patient)
 {
     $bdd = getBdd();
 
-    $patient = $bdd->query("DELETE FROM patient
-    WHERE id_patient = :id_patient");
+    $patient = $bdd->prepare("DELETE FROM patientWHERE id_patient = :id_patient");
     $patient->bindParam(':id_patient',$id_patient,PDO::PARAM_INT);
     $patient->execute();
     return $patient;
