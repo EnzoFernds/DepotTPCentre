@@ -41,7 +41,7 @@
             </select>
         </div>
 
-        <button type="submit" class="btn-submit">✅ Réserver</button>
+        <button type="submit" class="btn-submit"> Réserver</button>
     </form>
 </div>
 

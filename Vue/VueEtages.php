@@ -23,8 +23,18 @@
                         </p>
 
                         <div class="d-flex flex-wrap justify-content-center gap-3">
-                            <?php foreach ($etage['chambres'] as $chambre): ?>
-                                <div class="card text-center" style="width: 5rem;">
+                            <?php foreach ($etage['chambres'] as $chambre):
+                                // Calcul du ratio
+                                $ratio = $chambre['nb_lits_occupees'] / $chambre['nb_lits_total'];
+                                if ($ratio == 0) {
+                                    $statusClass = 'vide';
+                                } elseif ($ratio < 1) {
+                                    $statusClass = 'partiel';
+                                } else {
+                                    $statusClass = 'plein';
+                                }
+                                ?>
+                                <div class="card text-center chambre <?= $statusClass ?>" style="width: 5rem;">
                                     <div class="card-body p-2">
                                         <strong><?= $chambre['numero_chambre'] ?></strong><br>
                                         <small><?= $chambre['nb_lits_occupees'] ?> / <?= $chambre['nb_lits_total'] ?></small>
