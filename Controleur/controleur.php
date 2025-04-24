@@ -43,11 +43,6 @@ function patients()
     require 'Vue/VuePatient.php';
 }
 
-function repas()
-{
-    require 'Vue/VueRepas.php';
-}
-
 function formreserv()
 {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {

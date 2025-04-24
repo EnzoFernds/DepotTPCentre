@@ -11,8 +11,6 @@
                     etages();break;
                 case 'Patients':
                     patients();break;
-                case 'Repas':
-                    repas();break;
                 case 'Formulaire Réservation':
                     formreserv();break;
                 case 'Attribution Lit';
