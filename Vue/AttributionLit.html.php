@@ -19,15 +19,26 @@ $id_lit = isset($_GET['id_lit']) ? $_GET['id_lit'] : null;
         document.addEventListener('DOMContentLoaded', function () {
             const idLit = "<?php echo $id_lit; ?>";
             console.log('idLit:', idLit); // Affiche dans la console pour déboguer
+            if (idLit != -1) {
+                Swal.fire({
+                    text: 'Patient ajouté !',
+                    title: idLit ? 'Lit attribué : ' + idLit : 'Aucun lit attribué.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location.href = 'index.php?action=Accueil'; // Redirige vers la page d'accueil
+                });
+            } else {
+                Swal.fire({
+                    text: 'Patient ajouté !',
+                    title: 'Aucun Lit Disponible Patient en Attente ',
+                    icon: 'info',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location.href = 'index.php?action=Accueil'; // Redirige vers la page d'accueil
+                });
 
-            Swal.fire({
-                text: 'Patient ajouté !',
-                title: idLit ? 'Lit attribué : ' + idLit : 'Aucun lit attribué.',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            }).then(() => {
-                window.location.href = 'index.php?action=Accueil'; // Redirige vers la page d'accueil
-            });
+            }
         });
     </script>
 </body>
