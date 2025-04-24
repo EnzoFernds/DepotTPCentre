@@ -10,9 +10,25 @@ function getPatient()
 {
     $bdd = getBdd();
 
-    $patient = $bdd->query("SELECT * FROM `patient`");
-    return $patient;
+    $sql = "
+        SELECT 
+            patient.id_patient,
+            patient.nom,
+                patient.age,
+            patient.id_lit,
+            lit.id_lit,
+            chambre.numero_chambre,
+            chambre.id_etage
+        FROM patient
+        JOIN lit ON patient.id_lit = lit.id_lit
+        JOIN chambre ON lit.id_chambre = chambre.id_chambre
+    ";
+
+    $stmt = $bdd->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
 
 function getTauxOccupation()
 {
@@ -186,4 +202,11 @@ function getChambresEtOccupationParEtage($id_etage)
     $stmt->bindParam(':id_etage', $id_etage, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function supprimerPatientBD($id) {
+    $bdd = getBdd();
+    $stmt = $bdd->prepare("DELETE FROM patient WHERE id_patient = :id");
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
 }
