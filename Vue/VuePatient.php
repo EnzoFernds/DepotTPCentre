@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title><?= $title = "Accueil"; ?></title>
+    <title><?= $title = "Patient"; ?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="Style/navBarStyle.css">
     <link rel="stylesheet" href="Style/PatientStyle.css">
@@ -15,9 +15,14 @@
 
     <div class="topnav">
         <div class="search-container">
-            <form action="/action_page.php">
-                <input type="text" placeholder="Search.." name="search">
-                <button type="submit"><i class="fa fa-search"></i></button>
+            <form method="GET" action="index.php">
+                <input type="hidden" name="action" value="Patients">
+
+                <input type="text" name="search" placeholder="Rechercher un patient…" value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>" />
+
+                <button type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
             </form>
         </div>
     </div>
@@ -25,7 +30,7 @@
     <div class="container">
         <h2>Patients</h2>
         <div class="patients-wrapper">
-            <?php foreach ($patient as $p): ?>
+            <?php foreach ($patient as $p) : ?>
                 <div class="patient-card">
                     <p><strong>Patient n°<?= htmlspecialchars($p['id_patient']) ?></strong></p>
 
@@ -38,9 +43,8 @@
                     <p>Numero chambre : <?= htmlspecialchars($p['numero_chambre']) ?></p>
                     <p>Étage : <?= htmlspecialchars($p['id_etage']) ?></p>
 
-                    <form method="POST" action="index.php?action=supprimerPatient"
-                        onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce patient ?');">
-                        <input type="hidden" name="id_patient" value="<?= $patient['id_patient'] ?>">
+                    <form method="POST" action="index.php?action=supprimerPatient" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce patient ?');">
+                        <input type="hidden" name="id_patient" value="<?= $p['id_patient'] ?>">
                         <button type="submit">Supprimer</button>
                     </form>
                 </div>

@@ -40,7 +40,9 @@ function etages()
 
 function patients()
 {
-    $patient = getPatient();
+    $search = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+    $patient = getPatients($search);    
     require 'Vue/VuePatient.php';
 }
 
