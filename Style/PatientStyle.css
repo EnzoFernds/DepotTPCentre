@@ -1,0 +1,50 @@
+/* Container principal */
+.container {
+    padding: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Titre */
+h2 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+/* Carte patient */
+.patient-card {
+    background-color: #f9f9f9;
+    border-left: 5px solid #3498db;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.patient-card:hover {
+    transform: scale(1.01);
+}
+
+/* Texte */
+.patient-card p {
+    font-size: 16px;
+    margin: 6px 0;
+}
+
+/* Bouton supprimer */
+.patient-card button[type="submit"] {
+    background-color: #e74c3c;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.patient-card button[type="submit"]:hover {
+    background-color: #c0392b;
+}

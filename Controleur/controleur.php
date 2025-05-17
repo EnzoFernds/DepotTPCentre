@@ -40,6 +40,9 @@ function etages()
 
 function patients()
 {
+    $search = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+    $patient = getPatients($search);    
     require 'Vue/VuePatient.php';
 }
 
@@ -76,6 +79,18 @@ function erreur($msgErreur)
 function attributlit()
 {
     require 'Vue/AttributionLit.html.php';
+}
+
+function supprimerPatient()
+{
+    if (isset($_POST['id_patient'])) {
+        $id = $_POST['id_patient'];
+        supprimerPatientBD($id); // Appel de la fonction dans le repository
+        header("Location: index.php?action=Patients");
+        exit;
+    } else {
+        echo "<script>alert('ID patient manquant'); window.location.href='index.php?action=VuePatient';</script>";
+    }
 }
 
 ?>
